@@ -7,7 +7,7 @@
  * @subpackage	Helpers
  * @category	Helpers
  * @author		Andri Setiawan
- * @link		https://github.com/rouninja
+ * @link		https://github.com/shevtiawan
  */
 
 // ------------------------------------------------------------------------

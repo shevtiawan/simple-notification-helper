@@ -1,0 +1,89 @@
+ * CodeIgniter Simple Notification Helpers
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @author		Andri Setiawan
+ * @link		https://github.com/shevtiawan
+
+------------------------------------------------------------------------
+
+
+Simple Notification helper adalah helper sederhana untuk framework Codeigniter yang dapat digunakan 
+untuk keperluan notifikasi. 
+Misalnya: untuk keperluan menampilkan pesan error saat user login.
+
+
+// Fungsi fungsi yang bisa digunakan
+-----------------------------------------------
+
+- function set_red_notification($message="")
+- function set_blue_notification($message="")
+- function set_green_notification($message="")
+
+- function print_notification()
+- function print_red_notification()
+- function print_blue_notification()
+- function print_green_notification()
+
+// Petunjuk penggunaan
+------------------------------------------------
+1. download dan letakkan file notification_helper.php di direktori ./system/application/helpers
+2. panggil simple notification helper setiap kali akan digunakan di controller ( $this->load->helper('notification_helper') )
+ATAU
+2. setting autoload dengan mengubah file ./application/config/autoload.php sehingga notification helper bisa digunakan setiap saat.
+
+
+// Contoh penggunaan untuk keperluan pesan error pada saat login
+----------------------------------------------------------------
+
+- function login_process pada controller
+function login_proses()
+{
+    $username = $this->input->post('username');
+	$password = $this->input->post('password');
+    if($this->auth->is_verified($username,$password))
+    {
+    	$this->auth->authenticate($username,'user');
+		set_green_notification('Login berhasil. Selamat datang.');
+        redirect('');	
+    }
+    else
+    {
+		set_red_notification('Login gagal. Username atau password salah. Silakan ulangi lagi.');
+		redirect('');
+    }      
+}
+
+- pada view
+
+<html>
+<head></head>
+<body>
+<?php echo print_notification() ?>
+</body>
+</html>
+
+
+- pada browser akan tergenerate:
+<html>
+<head></head>
+<body>
+	<div id="notification">
+		<div class="green-notification">Login berhasil. Selamat datang.</div>
+	</div>
+</body>
+</html>
+
+atau
+
+<html>
+<head></head>
+<body>
+	<div id="notification">
+		<div class="red-notification">Login gagal. Username atau password salah. Silakan ulangi lagi.</div>
+	</div>
+</body>
+</html>
+
+
