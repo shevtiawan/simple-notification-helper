@@ -11,7 +11,12 @@
 
 Simple Notification helper adalah helper sederhana untuk framework Codeigniter yang dapat digunakan 
 untuk keperluan notifikasi. 
-Misalnya: untuk keperluan menampilkan pesan error saat user login.
+Misalnya: untuk keperluan menampilkan pesan error/notifikasi saat user login.
+Untuk menampilkan pesan error/notifikasi ini simple notification helper memanfaatkan session flash data, 
+sehingga pesan error/notifikasi hanya terlihat untuk request pertama dan akan hilang pada request selanjutnya.
+
+//Prerequisite
+Agar simple notification helper dapat digunakan, library session harus diload.
 
 
 // Fungsi fungsi yang bisa digunakan
