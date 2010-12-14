@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Active Record : CodeIgniter User Guide</title>
+
+<link rel='stylesheet' type='text/css' media='all' href='userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='CodeIgniter User Guide' />
+</head>
+<body>
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+Simple notification helper
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Simple Notification Helper</h1>
+
+<p>Simple Notification helper adalah helper sederhana untuk framework Codeigniter yang dapat digunakan 
+untuk keperluan notifikasi. 
+Misalnya: untuk keperluan menampilkan pesan error/notifikasi saat user login.
+Untuk menampilkan pesan error/notifikasi ini simple notification helper memanfaatkan session flash data, 
+sehingga pesan error/notifikasi hanya terlihat untuk request pertama dan akan hilang pada request selanjutnya.</p>
+<p>Ada 3 tipe notifikasi: red, blue, green. Red untuk notifikasi yang sifatnya kegagalan (pesan error). Green untuk notifikasi yang sifatnya keberhasilan (pesan sukses). Blue untuk notifikasi yang sifatnya netral. Perbedaan diantara ketiganya adalah pada class css dari tag div yang membungkus pesan tersebut ketika pesan tersebut ditampilkan.</p>
+
+
+<p class="important"><strong>Prerequisite:</strong> Agar simple notification helper dapat digunakan, library session harus terlebih dahulu di-load.<br /></p>
+
+<ul>
+<li><a href="#penggunaan">Petunjuk penggunaan</a></li>
+<li><a href="#set">Mengeset data</a></li>
+<li><a href="#print">Menampilkan pesan</a></li>
+<li><a href="#contoh">Contoh penggunaan</a></li>
+</ul>
+
+<h1><a name="penggunaan"></a>Petunjuk penggunaan</h1>
+
+<p>1. Download dan letakkan file notification_helper.php di direktori ./system/application/helpers </p>
+<p>2. Panggil simple notification helper setiap kali akan digunakan di controller.
+<code>$this->load->helper('notification_helper'); </code>	
+</p>
+ATAU 
+<p>2. Setting autoload dengan mengubah file ./application/config/autoload.php sehingga notification helper bisa digunakan setiap saat.
+Contoh:
+<code> $autoload['helper'] = array('url','notification_helper'); </code>	
+</p>
+
+<h1><a name="set"></a>Mengeset data</h1>
+
+<h2>set_red_notification($message="")</h2>
+
+<p>Contoh:
+<code>set_red_notification("Maaf username atau password yang anda inputkan tidak sesuai.");</code>
+</p>
+
+<h2>set_blue_notification($message="")</h2>
+
+<p>Contoh:
+<code>set_blue_notification("Anda mempunyai 3 pesan baru.");</code>
+</p>
+
+<h2>set_green_notification($message="")</h2>
+<p>Contoh:
+<code>set_green_notification("Data telah berhasil diupdate.");</code>
+</p>
+
+<h1><a name="print"></a>Menampilkan data</h1>
+<p>Fungsi-fungsi berikut ini bisa dipanggil di view untuk menampilkan notifikasi(jika notifikasi tersebut di-set.)</p>
+<h2>print_notification() </h2>
+<p>Jika ada satu atau lebih notifikasi telah diset, maka pesan notifikasi akan ditampilkan. Jika tidak maka tidak ada pesan yg ditampilkan.
+	Contoh:
+<code>
+< div id="form"><br />
+	<strong>< ?php echo print_notification() ?></strong> <br />
+	...<br />
+< /div>	
+</code>
+</p>
+<p>Jika misalnya sebelumnya telah diset green notification seperti ini:
+<code>set_green_notification("Data telah berhasil diupdate.");</code>
+</p>
+<p>Maka html yg digenerate menjadi
+<code>
+	< div id="form"><br />
+		<strong>< div id="notification">
+			< div class="green-notification">Data telah berhasil diupdate.< /div>
+		< /div></strong><br />
+		...<br />
+	< /div>	
+
+</code>
+</p>
+
+<p>Jika misalnya sebelumnya tidak ada notification yang di-set, maka html yg digenerate menjadi
+<code>
+	< div id="form"><br />
+		...<br />
+	< /div>	
+
+</code>
+</p>
+
+
+<h2>print_red_notification() </h2>
+<p>Hanya menampilkan red notification (jika telah diset).
+Contoh:
+<code>
+< div id="form"><br />
+	<strong>< ?php echo print_red_notification() ?></strong><br />
+	...<br />
+< /div>	
+</code>
+</p>
+<h2>print_blue_notification() </h2>
+<p>Hanya menampilkan blue notification (jika telah diset).
+	Contoh:
+	<code>
+	< div id="form"><br />
+		<strong>< ?php echo print_blue_notification() ?></strong><br />
+		...<br />
+	< /div>	
+	</code>
+
+</p>
+<h2>print_green_notification() </h2>
+<p>Hanya menampilkan green notification (jika telah diset).
+	Contoh:
+	<code>
+	< div id="form"><br />
+		<strong>< ?php echo print_green_notification() ?></strong><br />
+		...<br />
+	< /div>	
+	</code>
+
+</p>
+
+
+<h1><a name="contoh"></a>Contoh Penggunaan</h1>
+<p>Belum tersedia</p>
+<p>&nbsp;</p>
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Previous Topic:&nbsp;&nbsp;<a href="helpers.html">Query Helper Functions</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Next Topic:&nbsp;&nbsp;<a href="transactions.html">Transactions</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2010 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+</div>
+
+</body>
+</html>
